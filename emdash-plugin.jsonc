@@ -1,0 +1,42 @@
+{
+	"$schema": "./node_modules/@emdash-cms/plugin-cli/schemas/emdash-plugin.schema.json",
+	"slug": "deed-page",
+	// Publisher DID of the account that runs `emdash-plugin publish`.
+	// Pinned to upskillcoach.bsky.social. scripts/publish.sh refuses a mismatch.
+	"publisher": "did:plc:w2dq7d36vo4ubpjwqhbpfghi",
+	"name": "deed.page Publisher",
+	"description": "Publish any EmDash post or page to its own permanent URL on deed.page, then update or delete it from the editor.",
+	"keywords": ["publishing", "static", "hosting", "sharing", "deed.page"],
+	"license": "MIT",
+	"author": { "name": "Avatar 8 LLC", "url": "https://deed.page" },
+	"security": { "email": "ops@avatar33.com" },
+	"repo": "https://github.com/f-o-x11/emdash-plugin-deed-page",
+	"capabilities": ["content:read", "network:request"],
+	"allowedHosts": ["deed.page"],
+	"storage": {
+		"sites": { "indexes": ["updatedAt", "collection"] }
+	},
+	"admin": {
+		"pages": [{ "path": "/sites", "label": "deed.page", "icon": "globe" }],
+		"settingsSchema": {
+			"token": {
+				"type": "secret",
+				"label": "deed.page token",
+				"description": "Created by your first publish. Paste an existing deed_tok_ token to publish under your own deed.page account."
+			},
+			"autoUpdate": {
+				"type": "boolean",
+				"label": "Update on save",
+				"description": "Republish an entry to deed.page whenever it is saved while published.",
+				"default": true
+			}
+		},
+		"editorPanels": [{ "id": "deed-page", "title": "deed.page", "route": "editor/panel" }]
+	},
+	"sections": {
+		"description": { "file": "docs/description.md" },
+		"installation": { "file": "docs/installation.md" },
+		"faq": { "file": "docs/faq.md" },
+		"security": { "file": "docs/security.md" }
+	}
+}
